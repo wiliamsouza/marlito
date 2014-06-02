@@ -1,0 +1,7 @@
+api:
+  build: .
+  ports:
+    - "8000:8000"
+  environment:
+    - HOST: 127.0.0.1
+    - PUBLISH: 8000

@@ -1,0 +1,11 @@
+.vagrant/
+log/
+user-data
+config.rb
+
+*.pyc
+*.egg-info/
+__pycache__
+.tox/
+
+api/.coverage
