@@ -1,7 +1,7 @@
 marlito
 =======
 
-Marlito is a project develop from scratch on distribute infrastructure stacks.
+Marlito is a project developed from scratch on distribute infrastructure stack.
 
 CoreOS
 ------
@@ -19,4 +19,6 @@ Starting:
 ```
 vagrant up
 vagrant ssh marlito-01
+vagrant ssh marlito-02
+vagrant ssh marlito-03
 ```
