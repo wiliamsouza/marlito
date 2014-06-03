@@ -23,7 +23,7 @@ Or build this repository:
 ```
 $ git clone https://github.com/wiliamsouza/marlito.git
 $ cd api/
-$ docker build -t api .
+$ docker build -t marlito-api .
 ```
 
 Container
@@ -43,7 +43,7 @@ Shell access:
 
 ```
 $ docker run -p 8000:8000 -i \
--t api /bin/bash
+-t marlito-api /bin/bash
 ```
 
 The command above will start a container give you a shell. Don't
@@ -53,7 +53,7 @@ Usage:
 
 ```
 $ docker run --name api -p 8000:8000 -d \
--t api
+-t marlito-api
 ```
 
 The command above will start a container and return its ID.
