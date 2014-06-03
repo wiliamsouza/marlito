@@ -41,7 +41,7 @@ You pass with `-e` docker option.
 Shell access:
 
 ```
-$ docker run -p 8000:8000 -i \
+$ docker run --rm -p 8000:8000 -i \
 -t marlito-api /bin/bash
 ```
 
@@ -51,8 +51,7 @@ forget to start the service running the `startup &` script.
 Usage:
 
 ```
-$ docker run --name api -p 8000:8000 -d \
--t marlito-api
+$ docker run --name api -p 8000:8000 -d marlito-api
 ```
 
 The command above will start a container and return its ID.
