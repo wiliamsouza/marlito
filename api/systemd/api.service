@@ -1,15 +1,15 @@
 [Unit]
 Description=marlito-api
-Requires=etcd.service
-After=etcd.service
+Requires=docker.service
+After=docker.service
 
 [Service]
 EnvironmentFile=/etc/environment
-TimeoutStartSec=20m
-ExecStartPre=/bin/sh -c "docker history wiliamsouza/marlito-api >/dev/null || docker pull wiliamsouza/marlito-api:latest"
-ExecStartPre=/bin/sh -c "docker inspect marlito-api >/dev/null && docker rm -f marlito-api || true"
-ExecStart=/usr/bin/docker run --name marlito-api -p 8000:8000 -e PUBLISH=8000 -e HOST=${COREOS_PRIVATE_IPV4} wiliamsouza/marlito-api
-ExecStop=/usr/bin/docker rm -f marlito-api
+ExecStartPre=/usr/bin/docker pull wiliamsouza/marlito-api:develop
+ExecStart=/usr/bin/docker run --name marlito-api --rm -p 8000:8000 -e PRIVATE_IPV4=${COREOS_PRIVATE_IPV4} wiliamsouza/marlito-api
+ExecStopPost=/usr/bin/etcdctl set /marlito/api/ipv4/public ${COREOS_PUBLIC_IPV4}
+ExecStop=/usr/bin/docker stop marlito-api
+ExecStopPost=/usr/bin/etcdctl rm /marlito/api/ipv4/public
 
 [Install]
 WantedBy=multi-user.target
