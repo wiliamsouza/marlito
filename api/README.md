@@ -33,7 +33,6 @@ This image uses environment variables to control the api server configuration.
 
 Environment variable:
 
-* `PUBLISH`: Default 8000
 * `HOST`: Set to `${COREOS_PRIVATE_IPV4}` by `systemd` service unit and is the
           ip address of `etcd` on `coreos` box.
 
