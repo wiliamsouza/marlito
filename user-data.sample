@@ -37,6 +37,7 @@ coreos:
       command: start
       enable: true
       content: |
+
         [Unit]
         Description=marlito-api
         Requires=docker.service
@@ -44,13 +45,17 @@ coreos:
 
         [Service]
         EnvironmentFile=/etc/environment
-        ExecStartPre=/usr/bin/docker pull wiliamsouza/marlito-api:develop
-        ExecStart=/usr/bin/docker run --name marlito-api --rm -p 8000:8000 -e PRIVATE_IPV4=${COREOS_PRIVATE_IPV4} wiliamsouza/marlito-api
+        ExecStartPre=/usr/bin/docker pull wiliamsouza/marlito-api:development
+        ExecStart=/usr/bin/docker run --name marlito-api --rm -p 8000:8000 -e PRIVATE_IPV4=${COREOS_PRIVATE_IPV4} wiliamsouza/marlito-api:development
         ExecStopPost=/usr/bin/etcdctl set /marlito/api/ipv4/public ${COREOS_PUBLIC_IPV4}
         ExecStop=/usr/bin/docker stop marlito-api
         ExecStopPost=/usr/bin/etcdctl rm /marlito/api/ipv4/public
 
         [Install]
         WantedBy=multi-user.target
-ssh_authorized_keys:
-  - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDubxeiGgx5gtiYdHyC3zKs5Lq4rXsh5PdeLDTe/gqkcZJqz7vAYmv1PhiMm9m6TqF7P2VMAKl2Eo1HJIS7LTjonzvSPraSMPKOUiLt+5Iyv8agGFPvlrqGtlOEFplKo9WdmUhmrreaepvjt9acRHrYEKqhuZyAZvrRQBv3PpMqIUnyQKnLfALNlENmuYFPt4b66KjotH9Xr2Grmcri03R+ZWD9OCFlKtyRhzfPE/OIuZau66yeyV50vSDZadgthn/pUhUXP9Y8U54ByIKMw7b9ZTchC9E/VC5QW3RwB+tLpWiPd3srHc1/1+tOByxsD+4gLPpEKXmAkAbI0evN2FVn wiliamsouza83@gmail.com
+write_files:
+  - path: /home/core/.ssh/authorized_keys.d/wiliamsouza
+    permissions: 0600
+    owner: core
+    content: |
+      ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDubxeiGgx5gtiYdHyC3zKs5Lq4rXsh5PdeLDTe/gqkcZJqz7vAYmv1PhiMm9m6TqF7P2VMAKl2Eo1HJIS7LTjonzvSPraSMPKOUiLt+5Iyv8agGFPvlrqGtlOEFplKo9WdmUhmrreaepvjt9acRHrYEKqhuZyAZvrRQBv3PpMqIUnyQKnLfALNlENmuYFPt4b66KjotH9Xr2Grmcri03R+ZWD9OCFlKtyRhzfPE/OIuZau66yeyV50vSDZadgthn/pUhUXP9Y8U54ByIKMw7b9ZTchC9E/VC5QW3RwB+tLpWiPd3srHc1/1+tOByxsD+4gLPpEKXmAkAbI0evN2FVn wiliamsouza83@gmail.com
