@@ -3,7 +3,7 @@ from . import app
 
 @app.route('/ping')
 def login():
-    return 'Pong'
+    return 'pong'
 
 
 """
