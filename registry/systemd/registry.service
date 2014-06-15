@@ -1,0 +1,16 @@
+[Unit]
+Description=marlito-registry
+Requires=docker.service
+After=docker.service
+
+[Service]
+EnvironmentFile=/etc/environment
+TimeoutStartSec=20m
+ExecStartPre=/usr/bin/docker pull registry:0.7.0
+ExecStart=/usr/bin/docker run --name marlito-registry --rm -p 5000:5000 -e SETTINGS_FLAVOR=local registry:0.7.0
+ExecStartPost=/usr/bin/etcdctl set /marlito/registry/ipv4/public ${COREOS_PUBLIC_IPV4}
+ExecStop=/usr/bin/docker stop marlito-registry
+ExecStopPost=/usr/bin/etcdctl rm /marlito/registry/ipv4/public
+
+[Install]
+WantedBy=multi-user.target
