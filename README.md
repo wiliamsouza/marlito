@@ -14,6 +14,19 @@ Dependencies:
 * [Vagrant](http://www.vagrantup.com/) 1.6 or greater.
 
 
+NFS:
+
+It needs nfs.
+
+Create a folder to share.
+
+```
+mkdir -p ~/.containers
+```
+
+For info on how to install and configure it on a
+[fedora box](http://blog.bak1an.so/blog/2014/03/23/fedora-vagrant-nfs/)
+
 Starting:
 
 ```
