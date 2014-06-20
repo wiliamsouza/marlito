@@ -23,8 +23,10 @@ Or build this repository:
 ```
 $ git clone https://github.com/wiliamsouza/marlito.git
 $ cd api/
-$ docker build -t marlito-api .
+$ docker build -t marlito/api:development .
 ```
+For instructions to upload this `development` image for private registry
+look in `registry/README.md`.
 
 Container
 ---------

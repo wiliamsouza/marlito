@@ -5,9 +5,9 @@ After=docker.service
 
 [Service]
 EnvironmentFile=/etc/environment
-TimeoutStartSec=20m
-ExecStartPre=/usr/bin/docker pull wiliamsouza/marlito-api:development
-ExecStart=/usr/bin/docker run --name marlito-api --rm -p 8000:8000 -e PRIVATE_IPV4=${COREOS_PRIVATE_IPV4} wiliamsouza/marlito-api:development
+TimeoutStartSec=0
+ExecStartPre=/usr/bin/docker pull ${COREOS_PUBLIC_IPV4}:5000/marlito/api:development
+ExecStart=/usr/bin/docker run --name marlito-api --rm -p 8000:8000 -e PRIVATE_IPV4=${COREOS_PRIVATE_IPV4} ${COREOS_PUBLIC_IPV4}:5000/marlito/api:development
 ExecStartPost=/usr/bin/etcdctl set /marlito/api/ipv4/public ${COREOS_PUBLIC_IPV4}
 ExecStop=/usr/bin/docker stop marlito-api
 ExecStopPost=/usr/bin/etcdctl rm /marlito/api/ipv4/public
