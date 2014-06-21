@@ -47,8 +47,8 @@ DEBUG
 ```
 docker run --name marlito-registry --rm -p 5000:5000 \
     -e SETTINGS_FLAVOR=local -e STANDALONE=true \
-    -e DISABLE_TOKEN_AUTH=true -e STORAGE_PATH=/data/registry \
-    -e SQLALCHEMY_INDEX_DATABASE=sqlite:////data/registry/docker-registry.db \
-    -v /home/wiliam/.containers/marlito/registry/volumes/data:/data/registry \
-    registry:0.7.0
+    -e DISABLE_TOKEN_AUTH=true -e STORAGE_PATH=/mnt/data \
+    -e SQLALCHEMY_INDEX_DATABASE=sqlite:////mnt/data/docker-registry.db \
+    -v /home/wiliam/.containers/marlito/registry/volumes/data:/mnt/data \
+    registry:0.7.3
 ```
