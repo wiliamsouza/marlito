@@ -33,28 +33,13 @@ coreos:
 
         [Install]
         WantedBy=sockets.target
-    - name: api.service
-      command: start
-      enable: true
-      content: |
-
-        [Unit]
-        Description=marlito-api
-        Requires=docker.service
-        After=docker.service
-
-        [Service]
-        EnvironmentFile=/etc/environment
-        TimeoutStartSec=20m
-        ExecStartPre=/usr/bin/docker pull wiliamsouza/marlito-api:development
-        ExecStart=/usr/bin/docker run --name marlito-api --rm -p 8000:8000 -e PRIVATE_IPV4=${COREOS_PRIVATE_IPV4} wiliamsouza/marlito-api:development
-        ExecStopPost=/usr/bin/etcdctl set /marlito/api/ipv4/public ${COREOS_PUBLIC_IPV4}
-        ExecStop=/usr/bin/docker stop marlito-api
-        ExecStopPost=/usr/bin/etcdctl rm /marlito/api/ipv4/public
-
-        [Install]
-        WantedBy=multi-user.target
 write_files:
+  - path: /etc/env.d/99marlito
+    permissions: 644
+    owner: root
+    content: |
+      ENVIRONMENT=development
+      DOCKER_REGISTRY=<LOCAL-REGISTRY-IP>
   - path: /home/core/.ssh/authorized_keys.d/wiliamsouza
     permissions: 0600
     owner: core
