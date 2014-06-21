@@ -1,12 +1,12 @@
 marlito:
-  image: registry
+  image: registry:0.7.3
   ports:
     - "5000:5000"
   environment:
     SETTINGS_FLAVOR: local
     STANDALONE: true
     DISABLE_TOKEN_AUTH: true
-    STORAGE_PATH: /data/registry
-    SQLALCHEMY_INDEX_DATABASE: sqlite:////data/registry/docker-registry.db
+    STORAGE_PATH: /mnt/data/
+    SQLALCHEMY_INDEX_DATABASE: sqlite:////mnt/data/docker-registry.db
   volumes:
-    - /home/wiliam/.containers/marlito/registry/volumes/data:/data/registry
+    - /home/wiliam/.containers/marlito/registry/volumes/data:/mnt/data
