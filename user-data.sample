@@ -34,7 +34,7 @@ coreos:
         [Install]
         WantedBy=sockets.target
 write_files:
-  - path: /etc/env.d/99marlito
+  - path: /etc/env.d/marlito
     permissions: 644
     owner: root
     content: |
