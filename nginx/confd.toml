@@ -1,0 +1,5 @@
+[confd]
+confdir  = "/srv/nginx/confd"
+interval = 5
+prefix   = "/"
+quiet = true

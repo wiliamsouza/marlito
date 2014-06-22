@@ -39,7 +39,7 @@ RUN apt-get install build-essential libpcre3-dev python python-dev wget -y
 
 ADD etc/sysctl.conf /etc/sysctl.conf
 
-# install latest etcdctl including no-sync options
+# install etcdctl binary
 ADD bin/etcdctl /usr/local/bin/etcdctl
 RUN chmod +x /usr/local/bin/etcdctl
 

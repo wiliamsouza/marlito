@@ -1,0 +1,20 @@
+[Unit]
+Description=marlito-nginx
+Requires=docker.service
+After=docker.service
+
+[Service]
+EnvironmentFile=/etc/environment
+EnvironmentFile=/etc/env.d/marlito
+TimeoutStartSec=0
+ExecStartPre=/usr/bin/docker pull ${DOCKER_REGISTRY}:5000/marlito/nginx:${ENVIRONMENT}
+ExecStart=/usr/bin/docker run --name nginx-%i --rm -p 80:80 ${DOCKER_REGISTRY}:5000/marlito/nginx:${ENVIRONMENT}
+ExecStartPost=/usr/bin/etcdctl set /marlito/nginx/%i/ipv4/public ${COREOS_PUBLIC_IPV4}
+ExecStop=/usr/bin/docker stop nginx-%i
+ExecStopPost=/usr/bin/etcdctl rm /marlito/nginx/%i/ipv4/public
+
+[Install]
+WantedBy=multi-user.target
+
+[X-Fleet]
+X-Conflicts=nginx-*.service
