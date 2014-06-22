@@ -1,7 +1,9 @@
 marlito-api
 ===========
 
-API server
+It is a minimal API server writem in Flask that runs inside
+Docker and know how to configure itself and announce it's
+presence to ngnix server.
 
 Dockerfile
 -----------
@@ -11,14 +13,7 @@ Docker api server image source. This is based on `ubuntu:12.04` image.
 Image
 -----
 
-You can `pull` a ready to use image from Docker
-[index](https://index.docker/u/wiliamsouza/) running:
-
-```
-$ docker pull wiliamsouza/marlito-api
-```
-
-Or build this repository:
+Build this image:
 
 ```
 $ git clone https://github.com/wiliamsouza/marlito.git
@@ -44,7 +39,7 @@ Shell access:
 
 ```
 $ docker run --rm -p 8000:8000 -i \
--t marlito-api /bin/bash
+-t marlito-api:development /bin/bash
 ```
 
 The command above will start a container give you a shell. Don't
@@ -53,7 +48,7 @@ forget to start the service running the `startup &` script.
 Usage:
 
 ```
-$ docker run --name api -p 8000:8000 -d marlito-api
+$ docker run --name api -p 8000:8000 -d marlito-api:development
 ```
 
 The command above will start a container and return its ID.
