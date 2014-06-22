@@ -5,13 +5,16 @@ After=docker.service
 
 [Service]
 EnvironmentFile=/etc/environment
-EnvironmentFile=/etc/env.d/99marlito
+EnvironmentFile=/etc/env.d/marlito
 TimeoutStartSec=0
 ExecStartPre=/usr/bin/docker pull ${DOCKER_REGISTRY}:5000/marlito/api:${ENVIRONMENT}
-ExecStart=/usr/bin/docker run --name marlito-api --rm -p 8000:8000 -e PRIVATE_IPV4=${COREOS_PRIVATE_IPV4} ${DOCKER_REGISTRY}:5000/marlito/api:${ENVIRONMENT}
-ExecStartPost=/usr/bin/etcdctl set /marlito/api/ipv4/public ${COREOS_PUBLIC_IPV4}
-ExecStop=/usr/bin/docker stop marlito-api
-ExecStopPost=/usr/bin/etcdctl rm /marlito/api/ipv4/public
+ExecStart=/usr/bin/docker run --name api-%i --rm -p %i:8000 ${DOCKER_REGISTRY}:5000/marlito/api:${ENVIRONMENT}
+ExecStartPost=/usr/bin/etcdctl set /marlito/api/%i/ipv4/public ${COREOS_PUBLIC_IPV4}:%i
+ExecStop=/usr/bin/docker stop api-%i
+ExecStopPost=/usr/bin/etcdctl rm /marlito/api/%i/ipv4/public
 
 [Install]
 WantedBy=multi-user.target
+
+[X-Fleet]
+X-Conflicts=api@%i.service
