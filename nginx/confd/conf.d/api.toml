@@ -1,0 +1,9 @@
+[template]
+src   = "api.tmpl"
+dest  = "/etc/nginx/sites-enabled/api"
+uid = 0
+gid = 0
+mode  = "0755"
+keys = ["/marlito/api"]
+check_cmd  = "nginx -t -c {{ .src }}"
+reload_cmd = "supervisorctl restart nginx"
