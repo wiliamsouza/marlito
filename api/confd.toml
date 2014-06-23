@@ -1,5 +1,0 @@
-[confd]
-confdir  = "/srv/api/confd"
-interval = 5
-prefix   = "/"
-quiet = true
