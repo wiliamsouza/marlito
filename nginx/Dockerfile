@@ -31,6 +31,8 @@ CMD ["/usr/local/bin/startup"]
 # environment
 
 # dependencies
+RUN apt-get install curl -y
+
 RUN curl -L https://github.com/kelseyhightower/confd/releases/download/v0.4.0/confd-0.4.0-darwin-amd64 -o /usr/local/bin/confd
 RUN chmod +x /usr/local/bin/confd
 
