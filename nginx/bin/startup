@@ -5,18 +5,13 @@ log=/var/log/nginx
 html=/usr/share/nginx/html
 available=/etc/nginx/sites-available
 enabled=/etc/nginx/sites-enabled
+etcd=${COREOS_IP}:4001
 
-chown -R www-data:adm $log
-chmod 0750 $log
+until /usr/local/bin/confd -onetime -node $etcd -config-file /etc/confid/confd.toml 2>/dev/null; do
+    sleep 1
+done
 
-chown -R root:root $html
-chmod 755 $html
-
-chown -R root:root $available
-chmod 755 $available
-
-chown -R root:root $confd
-chmod 755 $confd
+/usr/local/bin/confd -node $etcd -config-file /etc/confd/confd.toml &
 
 # Enable available sites
 for site in $(ls $available); do
