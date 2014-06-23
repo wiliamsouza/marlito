@@ -1,6 +1,6 @@
 [template]
 src   = "api.tmpl"
-dest  = "/etc/nginx/sites-enabled/api"
+dest  = "/etc/nginx/sites-available/api"
 uid = 0
 gid = 0
 mode  = "0755"
