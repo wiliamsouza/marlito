@@ -48,12 +48,7 @@ RUN update-rc.d -f nginx disable
 
 ADD etc/nginx.conf /etc/nginx/nginx.conf
 
-# change to the your project name
-ENV PROJECT nginx
-
 # source code
-ADD . /srv/$PROJECT
-
-VOLUME ["/etc/nginx/sites-available", "/usr/share/nginx/html", "/var/log/nginx", "/etc/nginx/conf.d", "/srv"]
+ADD confd /etc/confd
 
 EXPOSE 80
