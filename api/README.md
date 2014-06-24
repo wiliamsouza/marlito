@@ -16,39 +16,29 @@ Image
 Build this image:
 
 ```
-$ git clone https://github.com/wiliamsouza/marlito.git
 $ cd api/
 $ docker build -t marlito/api:development .
 ```
-For instructions to upload this `development` image for private registry
-look in `registry/README.md`.
 
 Container
 ---------
 
-This image uses environment variables to control the api server configuration.
-
-Environment variable:
-
-* `HOST`: Set to `${COREOS_PRIVATE_IPV4}` by `systemd` service unit and is the
-          ip address of `etcd` on `coreos` box.
-
-You pass with `-e` docker option.
+The commands here should be executed inside a cluster node.
 
 Shell access:
 
 ```
 $ docker run --rm -p 8000:8000 -i \
--t marlito-api:development /bin/bash
+-t marlito/api:development /bin/bash
 ```
 
 The command above will start a container give you a shell. Don't
 forget to start the service running the `startup &` script.
 
-Usage:
+Manual start:
 
 ```
-$ docker run --name api -p 8000:8000 -d marlito-api:development
+$ docker run --name api -p 8000:8000 -d marlito/api:development
 ```
 
 The command above will start a container and return its ID.

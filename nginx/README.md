@@ -1,6 +1,9 @@
 marlito-nginx
 =============
 
+It is nginx server that list for announcements on the cluster and
+reconfigures itself adding and removing instances according.
+
 Dockerfile
 ----------
 
@@ -12,26 +15,43 @@ Image
 Build this repository:
 
 ```
-$ git clone https://github.com/wiliamsouza/marlito.git
-$ cd marlito/nginx/
+$ cd nginx/
 $ docker build -t marlito/nginx:development .
 ```
 
 Container
 ---------
 
-This image uses volumes and environment variables to control the nginx server
-configuration.
+This image uses environment variables to control the api server configuration.
 
-Volumes:
+Environment variable:
 
-* `/etc/nginx/site-available`: Change sites configurations using it.
-* `/usr/share/nginx/html`: HTML files goes here.
-* `/etc/nginx/conf.d`: Change sites configurations using it.
-* `/var/log/nginx`: Access log from the container using it.
-* `/srv`: Add your app source code here.
+ * `COREOS_IP`: IP of etcd to connect and list for changes.
 
-You pass with `-v` docker option. Don't forget to use absolute path here.
+You pass with -e docker option.
+
+The commands here should be executed inside a cluster node.
+
+Shell access:
+
+```
+$ docker run --rm -p 80:80 -i \
+-e COREOS_IP=<IP-ADDRESS> \
+-t marlito/nginx:development /bin/bash
+```
+
+The command above will start a container give you a shell. Don't
+forget to start the service running the `startup &` script.
+
+Manual start:
+
+```
+$ docker run --name nginx -p 80:80 \
+-e COREOS_IP=<IP-ADDRESS> \
+-d marlito/nginx:development
+```
+
+The command above will start a container and return its ID.
 
 Pushing images
 --------------
